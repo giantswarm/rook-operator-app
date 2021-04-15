@@ -1,13 +1,23 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/{APP-NAME}-app)
+[![CircleCI](https://circleci.com/gh/giantswarm/rook-operator-app.svg?style=shield)](https://circleci.com/gh/giantswarm/rook-operator-app)
 
-# {APP-NAME} chart
+# rook-operator chart
 
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+Giant Swarm offers a rook-operator App which can be installed in workload clusters.
+Here we define the rook-operator chart with its templates and default configuration.
 
 **What is this app?**
+
+This app deploys the [rook operator](https://github.com/rook/rook/) to Giant Swarm clusters.
+
 **Why did we add it?**
+
+Using Rook to provide Ceph storage abstracts storage provisioning away from the underlying
+infrastructure and improves the end-user experience when interacting with storage.
+
 **Who can use it?**
+
+Anyone may use this app, however it is directly intended to be used in Giant Swarm on-premise
+clusters.
 
 ## Installing
 
@@ -20,13 +30,16 @@ There are 3 ways to install this app onto a workload cluster.
 ## Configuring
 
 ### values.yaml
+
 **This is an example of a values file you could upload using our web interface.**
+
 ```
 # values.yaml
 
 ```
 
 ### Sample App CR and ConfigMap for the management cluster
+
 If you have access to the Kubernetes API on the management cluster, you could create
 the App CR and ConfigMap directly.
 
@@ -61,4 +74,4 @@ Not following these limitations will most likely result in a broken deployment.
 
 ## Credit
 
-* {APP HELM REPOSITORY}
+* https://github.com/rook/rook/
