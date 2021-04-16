@@ -349,7 +349,7 @@ discoverDaemonUdev:
 # Whether the OBC provisioner should watch on the operator namespace or not, if not the namespace of the cluster will be used
 enableOBCWatchOperatorNamespace: true
 
-admissionController:
+admissionController: {}
   # Set tolerations and nodeAffinity for admission controller pod.
   # The admission controller would be best to start on the same nodes as other ceph daemons.
   # tolerations:
