@@ -98,6 +98,14 @@
         "logLevel": {
             "type": "string"
         },
+        "networkPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "nodeSelector": {
             "type": "object"
         },

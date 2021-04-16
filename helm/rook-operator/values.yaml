@@ -363,7 +363,7 @@ admissionController: {}
 # different priorityclasses must be enabled depending on whether
 # rook is being installed in a Management Cluster or a Workload
 # Cluster.
-
+#
 priorityClasses:
   osd:
     # must be enabled when deploying to a Management Cluster.
@@ -380,3 +380,8 @@ priorityClasses:
     enabled: true
     name: rook-ceph-default
     value: 1000000000
+
+# enable network policy (if required).
+#
+networkPolicy:
+  enabled: true
