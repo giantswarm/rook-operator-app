@@ -1,0 +1,26 @@
+{{- if .Values.priorityClasses.osd.enabled }}
+apiVersion: scheduling.k8s.io/v1
+description: This priority class is used by rook-ceph OSD pods
+kind: PriorityClass
+metadata:
+  name: {{ .Values.priorityClasses.osd.name }}
+value: {{ .Values.priorityClasses.osd.value }}
+{{- end }}
+{{- if .Values.priorityClasses.mon.enabled }}
+---
+apiVersion: scheduling.k8s.io/v1
+description: This priority class is used by rook-ceph MON pods
+kind: PriorityClass
+metadata:
+  name: {{ .Values.priorityClasses.mon.name }}
+value: {{ .Values.priorityClasses.mon.value }}
+{{- end }}
+{{- if .Values.priorityClasses.default.enabled }}
+---
+apiVersion: scheduling.k8s.io/v1
+description: This priority class is used by rook-ceph pods without specific priorityClasses set
+kind: PriorityClass
+metadata:
+  name: {{ .Values.priorityClasses.default.name }}
+value: {{ .Values.priorityClasses.default.value }}
+{{- end }}

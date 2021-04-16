@@ -5,7 +5,7 @@
 image:
   prefix: rook
   repository: rook/ceph
-  tag: VERSION
+  tag: v1.5.9
   pullPolicy: IfNotPresent
 
 crds:
@@ -349,7 +349,7 @@ discoverDaemonUdev:
 # Whether the OBC provisioner should watch on the operator namespace or not, if not the namespace of the cluster will be used
 enableOBCWatchOperatorNamespace: true
 
-admissionController:
+admissionController: {}
   # Set tolerations and nodeAffinity for admission controller pod.
   # The admission controller would be best to start on the same nodes as other ceph daemons.
   # tolerations:
@@ -357,3 +357,31 @@ admissionController:
   #      operator: Exists
   #      effect: NoSchedule
   # nodeAffinity: key1=value1,value2; key2=value3
+
+## Giant Swarm chart addtions
+
+# different priorityclasses must be enabled depending on whether
+# rook is being installed in a Management Cluster or a Workload
+# Cluster.
+#
+priorityClasses:
+  osd:
+    # must be enabled when deploying to a Management Cluster.
+    enabled: false
+    name: rook-ceph-osd
+    value: 1000000000
+  mon:
+    # must be enabled when deploying to a Management Cluster.
+    enabled: false
+    name: rook-ceph-mon
+    value: 1000000000
+  default:
+    # must be enabled when deploying to Management and Workload Clusters.
+    enabled: true
+    name: rook-ceph-default
+    value: 1000000000
+
+# enable network policy (if required).
+#
+networkPolicy:
+  enabled: true
