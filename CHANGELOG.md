@@ -7,4 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/giantswarm/REPOSITORY_NAME/tree/master
+### Added
+
+- Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
+
+[Unreleased]: https://github.com/giantswarm/rook-operator-app/tree/master
