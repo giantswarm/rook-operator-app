@@ -43,6 +43,15 @@ As the upstream Helm chart is in a subdir, we need to use some git magic
 to filter out just the files we need into `temp-split-branch`. This
 operation may take some time depending on the power of your local machine.
 
+First check that there is no current local branch called `temp-split-branch`,
+and remove it if it exists:
+
+```
+git branch -D temp-split-branch
+```
+
+Then recreate the branch for this update:
+
 ```
 git subtree split -P cluster/charts/rook-ceph -b temp-split-branch
 ```
