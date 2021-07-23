@@ -21,6 +21,12 @@ Add the remote and fetch tags etc:
 git remote add -f rook-upstream https://github.com/rook/rook.git
 ```
 
+Make sure you fetch all changes from upstream:
+
+```
+git fetch rook-upstream
+```
+
 Next we checkout the tag we want to update to - it is fine to be in a
 detached head state as we aren't going to be committing anything here.
 
