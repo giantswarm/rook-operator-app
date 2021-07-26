@@ -76,3 +76,16 @@ Finally, tidy up the branches we created ready for next time:
 ```
 git branch -D temp-split-branch
 ```
+
+## Making a PR
+
+When squash-merging a PR after merging in from upstream, the commit message
+will also include all commit messages from upstream - these can safely be
+removed. It is *extremely important* that you retain the following info in
+the extended commit message as future subtree merges parse it and they will
+fail without it:
+
+```
+git-subtree-dir: helm/rook-operator
+git-subtree-split: bbf57758fe0706e6134a01d5e8f06dccba4aa0d9
+```
