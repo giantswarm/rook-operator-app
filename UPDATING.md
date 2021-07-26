@@ -68,7 +68,7 @@ Then merge in the upstream Helm chart which we split into the
 `temp-split-branch` earlier:
 
 ```
-git subtree add --squash -P helm/rook-operator temp-split-branch
+git subtree merge --squash -P helm/rook-operator temp-split-branch
 ```
 
 Finally, tidy up the branches we created ready for next time:
