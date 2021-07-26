@@ -21,8 +21,16 @@ Add the remote and fetch tags etc:
 git remote add -f rook-upstream https://github.com/rook/rook.git
 ```
 
+Make sure you fetch all changes from upstream:
+
+```
+git fetch rook-upstream master
+```
+
 Next we checkout the tag we want to update to - it is fine to be in a
-detached head state as we aren't going to be committing anything here.
+detached head state as we aren't going to be committing anything here. You
+can also check out an upstream branch, but `rook/rook` uses tags to
+denote a release.
 
 Note: it isn't possible to specify the origin of a tag, so if you have a
 tag `v1.6.0` in both remotes (local and upstream) then this may cause you
@@ -36,6 +44,15 @@ git switch --detach v1.6.0
 As the upstream Helm chart is in a subdir, we need to use some git magic
 to filter out just the files we need into `temp-split-branch`. This
 operation may take some time depending on the power of your local machine.
+
+First check that there is no current local branch called `temp-split-branch`,
+and remove it if it exists:
+
+```
+git branch -D temp-split-branch
+```
+
+Then recreate the branch for this update:
 
 ```
 git subtree split -P cluster/charts/rook-ceph -b temp-split-branch
@@ -51,11 +68,24 @@ Then merge in the upstream Helm chart which we split into the
 `temp-split-branch` earlier:
 
 ```
-git subtree add --squash -P helm/rook-operator temp-split-branch
+git subtree merge --squash -P helm/rook-operator temp-split-branch
 ```
 
 Finally, tidy up the branches we created ready for next time:
 
 ```
 git branch -D temp-split-branch
+```
+
+## Making a PR
+
+When squash-merging a PR after merging in from upstream, the commit message
+will also include all commit messages from upstream - these can safely be
+removed. It is *extremely important* that you retain the following info in
+the extended commit message as future subtree merges parse it and they will
+fail without it:
+
+```
+git-subtree-dir: helm/rook-operator
+git-subtree-split: bbf57758fe0706e6134a01d5e8f06dccba4aa0d9
 ```
