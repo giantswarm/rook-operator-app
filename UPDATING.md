@@ -28,7 +28,9 @@ git fetch rook-upstream master
 ```
 
 Next we checkout the tag we want to update to - it is fine to be in a
-detached head state as we aren't going to be committing anything here.
+detached head state as we aren't going to be committing anything here. You
+can also check out an upstream branch, but `rook/rook` uses tags to
+denote a release.
 
 Note: it isn't possible to specify the origin of a tag, so if you have a
 tag `v1.6.0` in both remotes (local and upstream) then this may cause you
