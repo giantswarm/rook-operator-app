@@ -1,9 +1,9 @@
 apiVersion: v1
-appVersion: 1.5.9
+appVersion: 1.6.8
 description: File, Block, and Object Storage Services for your Cloud-Native Environment
 engine: gotpl
 icon: https://s.giantswarm.io/app-icons/1/png/rook-operator-app-light.png
 name: rook-operator-app
 sources:
   - https://github.com/rook/rook
-version: 0.1.0
+version: 0.2.0

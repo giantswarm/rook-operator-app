@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Synced chart with upstream at `v1.6.8` ([#16](https://github.com/giantswarm/rook-operator-app/pull/16)).
+
 ## [0.1.0] - 2021-04-22
 
 ### Added
