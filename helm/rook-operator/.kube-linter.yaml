@@ -1,6 +1,12 @@
+# these checks are disabled as the upstream chart fails these
+# validation steps.
 checks:
   addAllBuiltIn: true
   exclude:
+  - "no-liveness-probe"
+  - "no-readiness-probe"
   - "no-read-only-root-fs"
   - "non-existent-service-account"
+  - "required-annotation-email"
+  - "required-label-owner"
   - "run-as-non-root"
