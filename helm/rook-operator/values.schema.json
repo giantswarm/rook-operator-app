@@ -138,7 +138,7 @@
                             "type": "string"
                         },
                         "value": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 },
@@ -152,7 +152,7 @@
                             "type": "string"
                         },
                         "value": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 },
@@ -166,7 +166,7 @@
                             "type": "string"
                         },
                         "value": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 }

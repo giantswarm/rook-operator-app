@@ -379,17 +379,17 @@ priorityClasses:
     # must be enabled when deploying to a Management Cluster.
     enabled: false
     name: rook-ceph-osd
-    value: 1000000000
+    value: "1000000000"
   mon:
     # must be enabled when deploying to a Management Cluster.
     enabled: false
     name: rook-ceph-mon
-    value: 1000000000
+    value: "1000000000"
   default:
     # must be enabled when deploying to Management and Workload Clusters.
     enabled: true
     name: rook-ceph-default
-    value: 1000000000
+    value: "1000000000"
 
 # enable network policy (if required).
 #
