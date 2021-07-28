@@ -1,18 +1,45 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@2.11.0
+  architect: giantswarm/architect@4.0.0
 
 workflows:
   package-and-push-chart-on-tag:
     jobs:
       - architect/push-to-app-catalog:
+          name: push-rook-operator-to-playground-catalog
           context: "architect"
           executor: "app-build-suite"
-          name: "package and push rook-operator chart"
           app_catalog: "giantswarm-playground-catalog"
           app_catalog_test: "giantswarm-playground-test-catalog"
           chart: "rook-operator"
           # Trigger job on git tag.
           filters:
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-catalog:
+          name: push-api-to-control-plane-app-catalog
+          context: architect
+          executor: "app-build-suite"
+          app_catalog: "control-plane-catalog"
+          app_catalog_test: "control-plane-test-catalog"
+          chart: "rook-operator"
+          requires:
+            - push-rook-operator-to-playground-catalog
+          # Needed to trigger job also on git tag.
+          filters:
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-collection:
+          name: push-api-to-kvm-app-collection
+          context: architect
+          app_name: "rook-operator"
+          app_collection_repo: "kvm-app-collection"
+          requires:
+            - push-rook-operator-to-playground-catalog
+          filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^v.*/
