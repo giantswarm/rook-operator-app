@@ -1,0 +1,5 @@
+---
+rules:
+  comments:
+    require-starting-space: false
+    min-spaces-from-content: 1
