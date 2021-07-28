@@ -395,3 +395,8 @@ priorityClasses:
 #
 networkPolicy:
   enabled: true
+
+# global toggle to enable/disable creation of all resources
+#
+global:
+  rookEnabled: true

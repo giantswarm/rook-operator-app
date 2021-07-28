@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.pspEnable }}
 # PSP for rook-ceph-operator
 
@@ -79,4 +80,5 @@ spec:
     # Ceph mgr Prometheus Metrics
     - min: 9283
       max: 9283
+{{- end }}
 {{- end }}

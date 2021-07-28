@@ -83,6 +83,14 @@
         "enableSelinuxRelabeling": {
             "type": "boolean"
         },
+        "global": {
+            "type": "object",
+            "properties": {
+                "rookEnabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "hostpathRequiresPrivileged": {
             "type": "boolean"
         },

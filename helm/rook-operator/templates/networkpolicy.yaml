@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.networkPolicy.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -13,4 +14,5 @@ spec:
   policyTypes:
   - Ingress
   - Egress
+{{- end }}
 {{- end }}

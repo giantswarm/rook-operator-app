@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -345,4 +346,5 @@ spec:
 {{- end }}
 {{- if .Values.rbacEnable }}
       serviceAccountName: rook-ceph-system
+{{- end }}
 {{- end }}

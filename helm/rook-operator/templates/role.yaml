@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.rbacEnable }}
 # The role for the operator to manage resources in its own namespace
 apiVersion: rbac.authorization.k8s.io/v1
@@ -157,4 +158,5 @@ rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
     verbs: ["get", "watch", "list", "delete", "update", "create"]
+{{- end }}
 {{- end }}
