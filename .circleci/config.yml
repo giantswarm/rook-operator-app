@@ -36,7 +36,6 @@ workflows:
           context: architect
           app_name: "rook-operator"
           app_collection_repo: "kvm-app-collection"
-          app_namespace: "rook-operator"
           requires:
             - push-rook-operator-to-playground-catalog
           filters:
