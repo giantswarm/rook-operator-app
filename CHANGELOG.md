@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Ensure the app is deployed to the correct namespace on MCs.
+
 ## [0.3.1] - 2021-07-29
 
 ## [0.3.0] - 2021-07-28
