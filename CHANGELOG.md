@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Push to control-plane-catalog and kvm-app-collection ([#21](https://github.com/giantswarm/rook-operator-app/pull/21)).
 - Add a global toggle to enable/disable all resources in the chart ([#22](https://github.com/giantswarm/rook-operator-app/pull/22)).
 
+### Removed
+
+- Remove -app suffix from chart name ([#24](https://github.com/giantswarm/rook-operator-app/pull/24)).
+
 ## [0.2.0] - 2021-07-27
 
 ### Changed
