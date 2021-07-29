@@ -86,6 +86,9 @@
         "global": {
             "type": "object",
             "properties": {
+                "isManagementCluster": {
+                    "type": "boolean"
+                },
                 "rookEnabled": {
                     "type": "boolean"
                 }
@@ -113,6 +116,14 @@
         },
         "logLevel": {
             "type": "string"
+        },
+        "monitoring": {
+            "type": "object",
+            "properties": {
+                "codename": {
+                    "type": "string"
+                }
+            }
         },
         "networkPolicy": {
             "type": "object",

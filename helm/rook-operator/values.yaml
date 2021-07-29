@@ -396,7 +396,15 @@ priorityClasses:
 networkPolicy:
   enabled: true
 
-# global toggle to enable/disable creation of all resources
+# shared values with subchart.
 #
 global:
+  # toggle MC-specific resources to be created.
+  isManagementCluster: false
+
+  # global toggle to enable/disable creation of all resources.
   rookEnabled: true
+
+# specific variables for the monitoring subchart.
+monitoring:
+  codename: ""
