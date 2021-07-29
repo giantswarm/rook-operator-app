@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add servicemonitor to enable monitoring on MCs ([#30](https://github.com/giantswarm/rook-operator-app/pull/30)).
+
 ## [0.3.3] - 2021-07-29
 
 ### Changed
