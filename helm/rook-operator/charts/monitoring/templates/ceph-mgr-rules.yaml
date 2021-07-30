@@ -25,7 +25,7 @@ spec:
         topic: managementcluster
     - alert: CephMgrIsMissingReplicas
       annotations:
-        description: 'Pod {{ $labels.namespace }}/{{ $labels.pod }} is not running.'
+        description: `Pod {{ $labels.namespace }}/{{ $labels.pod }} is not running.`
         opsrecipe: rook-ceph/
       expr: |
         sum(up{job="rook-ceph-mgr"}) < 1

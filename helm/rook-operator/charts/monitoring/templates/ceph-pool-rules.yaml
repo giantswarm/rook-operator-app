@@ -13,7 +13,7 @@ spec:
     rules:
     - alert: CephPoolQuotaBytesNearExhaustion
       annotations:
-        description: Storage pool {{ $labels.name }} quota usage has crossed 70%.
+        description: `Storage pool {{ $labels.name }} quota usage has crossed 70%.`
         opsrecipe: rook-ceph/
       expr: |
         (ceph_pool_stored_raw * on (pool_id) group_left(name)ceph_pool_metadata) / ((ceph_pool_quota_bytes * on (pool_id) group_left(name)ceph_pool_metadata) > 0) > 0.70
@@ -25,7 +25,7 @@ spec:
         topic: managementcluster
     - alert: CephPoolQuotaBytesCriticallyExhausted
       annotations:
-        description: Storage pool {{ $labels.name }} quota usage has crossed 90%.
+        description: `Storage pool {{ $labels.name }} quota usage has crossed 90%.`
         opsrecipe: rook-ceph/
       expr: |
         (ceph_pool_stored_raw * on (pool_id) group_left(name)ceph_pool_metadata) / ((ceph_pool_quota_bytes * on (pool_id) group_left(name)ceph_pool_metadata) > 0) > 0.90
