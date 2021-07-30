@@ -1,0 +1,14 @@
+{{- if .Values.global.rookEnabled }}
+# namespace where the Ceph cluster will run
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rook-ceph
+  annotations:
+    helm.sh/hook: "pre-install" # ensure the namespace exists before the monitoring subchart is applied
+    helm.sh/resource-policy: "keep" # ensure Helm never deletes this resource
+  labels:
+    operator: rook
+    storage-backend: ceph
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+{{- end }}
