@@ -1,0 +1,96 @@
+{{- if .Values.global.rookEnabled }}
+{{- if .Values.global.isManagementCluster }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  name: {{ .Values.nameStub }}-ceph-osd.rules
+  namespace: {{ .Values.rules.deploymentNamespace }}
+spec:
+  groups:
+  - name: ceph-osd.rules
+    rules:
+    - alert: CephOSDNearFull
+      annotations:
+        description: Utilization of storage device {{ $labels.ceph_daemon }} of device_class
+          type {{$labels.device_class}} has crossed 75% on host {{ $labels.hostname
+          }}. Immediately free up some space or add capacity of type {{$labels.device_class}}.
+        opsrecipe: rook-ceph/
+      expr: |
+        (ceph_osd_metadata * on (ceph_daemon) group_right(device_class) (ceph_osd_stat_bytes_used / ceph_osd_stat_bytes)) >= 0.75
+      for: 40s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephOSDCriticallyFull
+      annotations:
+        description: Utilization of storage device {{ $labels.ceph_daemon }} of device_class
+          type {{$labels.device_class}} has crossed 80% on host {{ $labels.hostname
+          }}. Immediately free up some space or add capacity of type {{$labels.device_class}}.
+        opsrecipe: rook-ceph/
+      expr: |
+        (ceph_osd_metadata * on (ceph_daemon) group_right(device_class) (ceph_osd_stat_bytes_used / ceph_osd_stat_bytes)) >= 0.80
+      for: 40s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephOSDFlapping
+      annotations:
+        description: Storage daemon {{ $labels.ceph_daemon }} has restarted 5 times
+          in last 5 minutes. Please check the pod events or ceph status to find out
+          the cause.
+        opsrecipe: rook-ceph/
+      expr: |
+        changes(ceph_osd_up[5m]) >= 10
+      for: 0s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephOSDDiskNotResponding
+      annotations:
+        description: Disk device {{ $labels.device }} not responding, on host {{ $labels.host
+          }}.
+        opsrecipe: rook-ceph/
+      expr: |
+        label_replace((ceph_osd_in == 1 and ceph_osd_up == 0),"disk","$1","ceph_daemon","osd.(.*)") + on(ceph_daemon) group_left(host, device) label_replace(ceph_disk_occupation,"host","$1","exported_instance","(.*)")
+      for: 1m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephOSDDiskUnavailable
+      annotations:
+        description: Disk device {{ $labels.device }} not accessible on host {{ $labels.host
+          }}.
+        opsrecipe: rook-ceph/
+      expr: |
+        label_replace((ceph_osd_in == 0 and ceph_osd_up == 0),"disk","$1","ceph_daemon","osd.(.*)") + on(ceph_daemon) group_left(host, device) label_replace(ceph_disk_occupation,"host","$1","exported_instance","(.*)")
+      for: 1m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephOSDSlowOps
+      annotations:
+        description: '{{ $value }} Ceph OSD requests are taking too long to process.
+          Please check ceph status to find out the cause.'
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_healthcheck_slow_ops > 0
+      for: 30s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+{{- end }}
+{{- end }}

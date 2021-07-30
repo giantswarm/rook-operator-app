@@ -1,0 +1,78 @@
+{{- if .Values.global.rookEnabled }}
+{{- if .Values.global.isManagementCluster }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  name: {{ .Values.nameStub }}-ceph-cluster.rules
+  namespace: {{ .Values.rules.deploymentNamespace }}
+spec:
+  groups:
+  - name: ceph-cluster.rules
+    rules:
+    - alert: CephClusterErrorState
+      annotations:
+        description: Storage cluster is in error state for more than 10m.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_health_status{job="rook-ceph-mgr"} > 1
+      for: 10m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephClusterWarningState
+      annotations:
+        description: Storage cluster is in warning state for more than 10m.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_health_status{job="rook-ceph-mgr"} == 1
+      for: 10m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephClusterNearFull
+      annotations:
+        description: Storage cluster utilization has crossed 75% and will become read-only
+          at 85%. Free up some space or expand the storage cluster.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.75
+      for: 5s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephClusterCriticallyFull
+      annotations:
+        description: Storage cluster utilization has crossed 80% and will become read-only
+          at 85%. Free up some space or expand the storage cluster immediately.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.80
+      for: 5s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephClusterReadOnly
+      annotations:
+        description: Storage cluster utilization has crossed 85% and will become read-only
+          now. Free up some space or expand the storage cluster immediately.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes >= 0.85
+      for: 0s
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+{{- end }}
+{{- end }}
