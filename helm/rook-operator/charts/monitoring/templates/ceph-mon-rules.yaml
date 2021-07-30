@@ -25,8 +25,8 @@ spec:
         topic: managementcluster
     - alert: CephMonHighNumberOfLeaderChanges
       annotations:
-        description: `Ceph Monitor {{ $labels.ceph_daemon }} on host {{ $labels.hostname
-          }} has seen {{ $value | printf "%.2f" }} leader changes per minute recently.`
+        description: '{{`Ceph Monitor {{ $labels.ceph_daemon }} on host {{ $labels.hostname
+          }} has seen {{ $value | printf "%.2f" }} leader changes per minute recently.`}}'
         opsrecipe: rook-ceph/
       expr: |
         (ceph_mon_metadata{job="rook-ceph-mgr"} * on (ceph_daemon) group_left() (rate(ceph_mon_num_elections{job="rook-ceph-mgr"}[5m]) * 60)) > 0.95
