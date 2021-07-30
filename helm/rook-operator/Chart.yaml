@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: 1.6.8
 dependencies:
   - name: monitoring
-    version: 0.1.0
+    version: 0.2.0
 description: File, Block, and Object Storage Services for your Cloud-Native Environment
 engine: gotpl
 icon: https://s.giantswarm.io/app-icons/1/png/rook-operator-app-light.png
