@@ -14,8 +14,7 @@ spec:
     - alert: CephOSDNearFull
       annotations:
         description: '{{`Utilization of storage device {{ $labels.ceph_daemon }} of device_class
-          type {{$labels.device_class}} has crossed 75% on host {{ $labels.hostname
-          }}. Immediately free up some space or add capacity of type {{$labels.device_class}}.`}}'
+          type {{$labels.device_class}} has crossed 75% on host {{ $labels.hostname }}.`}}'
         opsrecipe: rook-ceph/
       expr: |
         (ceph_osd_metadata * on (ceph_daemon) group_right(device_class) (ceph_osd_stat_bytes_used / ceph_osd_stat_bytes)) >= 0.75
@@ -29,21 +28,20 @@ spec:
       annotations:
         description: '{{`Utilization of storage device {{ $labels.ceph_daemon }} of device_class
           type {{$labels.device_class}} has crossed 80% on host {{ $labels.hostname
-          }}. Immediately free up some space or add capacity of type {{$labels.device_class}}.`}}'
+          }}.`}}'
         opsrecipe: rook-ceph/
       expr: |
         (ceph_osd_metadata * on (ceph_daemon) group_right(device_class) (ceph_osd_stat_bytes_used / ceph_osd_stat_bytes)) >= 0.80
       for: 40s
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
     - alert: CephOSDFlapping
       annotations:
         description: '{{`Storage daemon {{ $labels.ceph_daemon }} has restarted 5 times
-          in last 5 minutes. Please check the pod events or ceph status to find out
-          the cause.`}}'
+          in last 5 minutes. Check the pod events or ceph status.`}}'
         opsrecipe: rook-ceph/
       expr: |
         changes(ceph_osd_up[5m]) >= 10
@@ -76,13 +74,12 @@ spec:
       for: 1m
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
     - alert: CephOSDSlowOps
       annotations:
-        description: '{{`{{ $value }} Ceph OSD requests are taking too long to process.
-          Please check ceph status to find out the cause.`}}'
+        description: '{{`{{ $value }} Ceph OSD requests are taking too long to process.`}}'
         opsrecipe: rook-ceph/
       expr: |
         ceph_healthcheck_slow_ops > 0

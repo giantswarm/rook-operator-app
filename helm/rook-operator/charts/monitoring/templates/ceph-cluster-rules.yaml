@@ -20,7 +20,7 @@ spec:
       for: 10m
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
     - alert: CephClusterWarningState
@@ -32,26 +32,12 @@ spec:
       for: 10m
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
     - alert: CephClusterNearFull
       annotations:
-        description: Storage cluster utilization has crossed 75% and will become read-only
-          at 85%. Free up some space or expand the storage cluster.
-        opsrecipe: rook-ceph/
-      expr: |
-        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.75
-      for: 5s
-      labels:
-        area: kaas
-        severity: notify
-        team: rocket
-        topic: managementcluster
-    - alert: CephClusterCriticallyFull
-      annotations:
-        description: Storage cluster utilization has crossed 80% and will become read-only
-          at 85%. Free up some space or expand the storage cluster immediately.
+        description: Storage cluster utilization has crossed 80% and will become read-only at 90%.
         opsrecipe: rook-ceph/
       expr: |
         ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.80
@@ -61,17 +47,28 @@ spec:
         severity: notify
         team: rocket
         topic: managementcluster
-    - alert: CephClusterReadOnly
+    - alert: CephClusterCriticallyFull
       annotations:
-        description: Storage cluster utilization has crossed 85% and will become read-only
-          now. Free up some space or expand the storage cluster immediately.
+        description: Storage cluster utilization has crossed 85% and will become read-only at 90%.
         opsrecipe: rook-ceph/
       expr: |
-        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes >= 0.85
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.85
+      for: 5s
+      labels:
+        area: kaas
+        severity: page
+        team: rocket
+        topic: managementcluster
+    - alert: CephClusterReadOnly
+      annotations:
+        description: Storage cluster is now more than 90% full and has become read-only.
+        opsrecipe: rook-ceph/
+      expr: |
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes >= 0.90
       for: 0s
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
 {{- end }}

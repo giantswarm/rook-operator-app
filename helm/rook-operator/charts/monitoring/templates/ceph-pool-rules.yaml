@@ -32,7 +32,7 @@ spec:
       for: 1m
       labels:
         area: kaas
-        severity: notify
+        severity: page
         team: rocket
         topic: managementcluster
 {{- end }}
