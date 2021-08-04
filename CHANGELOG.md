@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add alerting rules for managed Ceph clusters ([#31](https://github.com/giantswarm/rook-operator-app/pull/31)).
 - Add servicemonitor to enable monitoring on MCs ([#30](https://github.com/giantswarm/rook-operator-app/pull/30)).
 
+### Changed
+
+- Promoted `rook-operator-app` to the main `giantswarm-catalog` ([#32](https://github.com/giantswarm/rook-operator-app/pull/32)).
+
 ## [0.3.3] - 2021-07-29
 
 ### Changed
