@@ -1,0 +1,39 @@
+{{- if .Values.global.rookEnabled }}
+{{- if .Values.global.isManagementCluster }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  name: {{ .Values.nameStub }}-ceph-mgr.rules
+  namespace: {{ .Values.rules.deploymentNamespace }}
+spec:
+  groups:
+  - name: ceph-mgr.rules
+    rules:
+    - alert: CephMgrIsAbsent
+      annotations:
+        description: Ceph Manager has disappeared from Prometheus target discovery.
+        opsrecipe: rook-ceph/
+      expr: |
+        absent(up{job="rook-ceph-mgr"} == 1)
+      for: 15m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+    - alert: CephMgrIsMissingReplicas
+      annotations:
+        description: '{{`Pod {{ $labels.namespace }}/{{ $labels.pod }} is not running.`}}'
+        opsrecipe: rook-ceph/
+      expr: |
+        sum(up{job="rook-ceph-mgr"}) < 1
+      for: 15m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+{{- end }}
+{{- end }}
