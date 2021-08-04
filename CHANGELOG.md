@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-08-04
+
 ### Added
 
 - Add alerting rules for managed Ceph clusters ([#31](https://github.com/giantswarm/rook-operator-app/pull/31)).
@@ -53,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
-[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/giantswarm/rook-operator-app/compare/v0.3.3...v1.0.0
 [0.3.3]: https://github.com/giantswarm/rook-operator-app/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/giantswarm/rook-operator-app/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/giantswarm/rook-operator-app/compare/v0.3.0...v0.3.1
