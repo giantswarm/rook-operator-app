@@ -1,7 +1,0 @@
-# prepend all rule names for easier identification
-nameStub: "rook-operator"
-
-rules:
-  # rules must currently be deployed to the same namespace
-  # as prometheus-operator.
-  deploymentNamespace: "monitoring"
