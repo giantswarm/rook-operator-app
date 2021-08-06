@@ -9,7 +9,7 @@ icon: https://s.giantswarm.io/app-icons/1/png/rook-operator-app-light.png
 name: rook-operator
 sources:
   - https://github.com/rook/rook
-version: 0.3.0
+version: 1.1.0
 annotations:
   application.giantswarm.io/team: "rocket"
   config.giantswarm.io/version: 1.x.x
