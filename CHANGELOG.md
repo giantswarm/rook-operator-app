@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated upstream chart to Rook `v1.7.0` ([#34](https://github.com/giantswarm/rook-operator-app/pull/34))
+- Restrict the app to KVM clusters only ([#35](https://github.com/giantswarm/rook-operator-app/pull/35))
 
 ## [1.0.0] - 2021-08-04
 
