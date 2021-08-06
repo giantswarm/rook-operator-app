@@ -27,13 +27,14 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         args: ["ceph", "operator"]
+        volumeMounts:
+        - mountPath: /var/lib/rook
+          name: rook-config
+        - mountPath: /etc/ceph
+          name: default-config-dir
         env:
         - name: ROOK_CURRENT_NAMESPACE_ONLY
           value: {{ .Values.currentNamespaceOnly | quote }}
-{{- if not .Values.rbacEnable }}
-        - name: RBAC_ENABLED
-          value: "false"
-{{- end }}
 {{- if .Values.agent }}
 {{- if .Values.agent.toleration }}
         - name: AGENT_TOLERATION
@@ -296,6 +297,8 @@ spec:
           value: "{{ .Values.enableFlexDriver }}"
         - name: ROOK_ENABLE_DISCOVERY_DAEMON
           value: "{{ .Values.enableDiscoveryDaemon }}"
+        - name: ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS
+          value: "{{ .Values.cephCommandsTimeoutSeconds }}"
         - name: ROOK_OBC_WATCH_OPERATOR_NAMESPACE
           value: "{{ .Values.enableOBCWatchOperatorNamespace }}"
 
@@ -324,10 +327,6 @@ spec:
 {{- if .Values.unreachableNodeTolerationSeconds }}
         - name: ROOK_UNREACHABLE_NODE_TOLERATION_SECONDS
           value: {{ .Values.unreachableNodeTolerationSeconds | quote }}
-{{- end }}
-{{- if .Values.allowMultipleFilesystems }}
-        - name: ROOK_ALLOW_MULTIPLE_FILESYSTEMS
-          value: {{ .Values.allowMultipleFilesystems | quote }}
 {{- end }}
 {{- if .Values.resources }}
         resources:

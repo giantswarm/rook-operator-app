@@ -11,6 +11,9 @@
         "annotations": {
             "type": "object"
         },
+        "cephCommandsTimeoutSeconds": {
+            "type": "string"
+        },
         "crds": {
             "type": "object",
             "properties": {
