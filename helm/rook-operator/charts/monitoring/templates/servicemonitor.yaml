@@ -1,0 +1,28 @@
+{{- if .Values.global.rookEnabled }}
+{{- if .Values.global.isManagementCluster }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    cluster_id: {{ .Values.codename }}
+    team: rook
+    operator: rook
+    storage-backend: ceph
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+  name: rook-ceph-mgr
+  namespace: {{ .Values.codename }}-prometheus
+spec:
+  endpoints:
+  - interval: 5s
+    path: /metrics
+    port: http-metrics
+  namespaceSelector:
+    matchNames:
+    - rook-ceph
+  selector:
+    matchLabels:
+      app: rook-ceph-mgr
+      ceph_daemon_id: a
+      rook_cluster: rook-ceph
+{{- end }}
+{{- end }}

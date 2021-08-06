@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "nameStub": {
+            "type": "string"
+        },
+        "rules": {
+            "type": "object",
+            "properties": {
+                "deploymentNamespace": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

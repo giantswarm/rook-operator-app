@@ -1,0 +1,40 @@
+{{- if .Values.global.rookEnabled }}
+{{- if .Values.global.isManagementCluster }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+  name: {{ .Values.nameStub }}-ceph-mon.rules
+  namespace: {{ .Values.rules.deploymentNamespace }}
+spec:
+  groups:
+  - name: ceph-mon.rules
+    rules:
+    - alert: CephMonQuorumAtRisk
+      annotations:
+        description: Storage cluster quorum is degraded.
+        opsrecipe: rook-ceph/
+      expr: |
+        count(ceph_mon_quorum_status{job="rook-ceph-mgr"} == 1) <= ((count(ceph_mon_metadata{job="rook-ceph-mgr"}) % 2) + 1)
+      for: 15m
+      labels:
+        area: kaas
+        severity: page
+        team: rocket
+        topic: managementcluster
+    - alert: CephMonHighNumberOfLeaderChanges
+      annotations:
+        description: '{{`Ceph Monitor {{ $labels.ceph_daemon }} on host {{ $labels.hostname
+          }} has seen {{ $value | printf "%.2f" }} leader changes per minute recently.`}}'
+        opsrecipe: rook-ceph/
+      expr: |
+        (ceph_mon_metadata{job="rook-ceph-mgr"} * on (ceph_daemon) group_left() (rate(ceph_mon_num_elections{job="rook-ceph-mgr"}[5m]) * 60)) > 0.95
+      for: 10m
+      labels:
+        area: kaas
+        severity: notify
+        team: rocket
+        topic: managementcluster
+{{- end }}
+{{- end }}
