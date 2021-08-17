@@ -5,15 +5,6 @@
 There are two distint update processes; one for the main chart and a
 second one for the `ceph-cluster` subchart.
 
-### Updating the main chart
-
-This process assumes that you have a master branch which is currently
-offering `v1.5.9` of `rook`, and you want to update it to `v1.6.0` from
-upstream.
-
-As this repo contains additions to the upstream chart, you will need to
-merge the changes from the new version in and assess them.
-
 ### Prepare your local checkout
 
 If you haven't updated this repo before, you will first need to add the
@@ -46,6 +37,16 @@ the tag points to instead.
 git switch --detach v1.6.0
 ```
 
+The repo is now ready to update the upstream charts it tracks.
+
+### Updating the main chart
+
+This process assumes that you have a master branch which is currently
+offering `v1.5.9` of `rook`, and you want to update it to `v1.6.0` from
+upstream.
+
+As this repo contains additions to the upstream chart, you will need to
+merge the changes from the new version in and assess them.
 As the upstream Helm chart is in a subdir, we need to use some git magic
 to filter out just the files we need into `temp-split-branch`. This
 operation may take some time depending on the power of your local machine.
