@@ -3,7 +3,8 @@
 # Declare variables to be passed into your templates.
 
 # Namespace of the main rook operator
-operatorNamespace: rook-ceph
+# GS addition: rook-operator will always be deployed into the giantswarm namespace.
+operatorNamespace: giantswarm
 
 # The metadata.name of the CephCluster CR. The default name is the same as the namespace.
 # clusterName: rook-ceph
