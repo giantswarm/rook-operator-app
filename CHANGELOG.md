@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Subchart to manage the cluster namespace and resources (uses upstream chart) ([#40](https://github.com/giantswarm/rook-operator-app/pull/40)).
+- Make the Ceph version configurable from the main chart's values ([#40](https://github.com/giantswarm/rook-operator-app/pull/40)).
+- Extended UPDATING.md to reflect the additional subchart ([#40](https://github.com/giantswarm/rook-operator-app/pull/40)).
+
 ## [1.1.0] - 2021-08-06
 
 ### Changed
