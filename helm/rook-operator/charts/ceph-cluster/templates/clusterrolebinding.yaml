@@ -1,10 +1,10 @@
-{{- if ne .Release.Namespace .Values.operatorNamespace }}
+{{- if ne .Values.global.cephClusterNamespace .Values.operatorNamespace }}
 ---
 # Allow the ceph mgr to access cluster-wide resources necessary for the mgr modules
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rook-ceph-mgr-cluster-{{ .Release.Namespace }}
+  name: rook-ceph-mgr-cluster-{{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -12,13 +12,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-mgr
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.global.cephClusterNamespace }}
 ---
 # Allow the ceph osd to access cluster-wide resources necessary for determining their topology location
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rook-ceph-osd-{{ .Release.Namespace }}
+  name: rook-ceph-osd-{{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -26,5 +26,5 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-osd
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.global.cephClusterNamespace }}
 {{- end }}

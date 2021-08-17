@@ -19,6 +19,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-osd
+  namespace: {{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -32,6 +33,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-mgr
+  namespace: {{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -44,7 +46,7 @@ subjects:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rook-ceph-mgr-system-{{ .Release.Namespace }}
+  name: rook-ceph-mgr-system-{{ .Values.global.cephClusterNamespace }}
   namespace: {{ .Values.operatorNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -53,12 +55,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-mgr
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.global.cephClusterNamespace }}
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-cmd-reporter
+  namespace: {{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -66,13 +69,14 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-cmd-reporter
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.global.cephClusterNamespace }}
 ---
 # Allow the osd purge job to run in this namespace
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-purge-osd
+  namespace: {{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -80,7 +84,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rook-ceph-purge-osd
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.global.cephClusterNamespace }}
 
 {{- if .Values.monitoring.enabled }}
 ---
@@ -89,6 +93,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-monitoring
+  namespace: {{ .Values.global.cephClusterNamespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

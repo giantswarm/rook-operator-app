@@ -4,6 +4,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-osd
+  namespace: {{ .Values.global.cephClusterNamespace }}
 rules:
   - apiGroups: [""]
     resources: ["configmaps"]
@@ -16,7 +17,8 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-mgr
-rules:
+  namespace: {{ .Values.global.cephClusterNamespace }}
+  rules:
   - apiGroups:
       - ""
     resources:
@@ -52,6 +54,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-cmd-reporter
+  namespace: {{ .Values.global.cephClusterNamespace }}
 rules:
   - apiGroups:
       - ""
@@ -70,6 +73,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-purge-osd
+  namespace: {{ .Values.global.cephClusterNamespace }}
 rules:
   - apiGroups: [""]
     resources: ["configmaps"]
@@ -90,6 +94,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rook-ceph-monitoring
+  namespace: {{ .Values.global.cephClusterNamespace }}
 rules:
   - apiGroups:
       - "monitoring.coreos.com"

@@ -8,6 +8,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ template "clusterName" . }}-dashboard
+  namespace: {{ .Values.global.cephClusterNamespace }}
   {{- if .Values.ingress.dashboard.annotations }}
   annotations: {{- toYaml .Values.ingress.dashboard.annotations | nindent 4 }}
   {{- end }}

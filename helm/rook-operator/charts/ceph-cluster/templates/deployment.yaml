@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rook-ceph-tools
+  namespace: {{ .Values.global.cephClusterNamespace }}
   labels:
     app: rook-ceph-tools
 spec:
