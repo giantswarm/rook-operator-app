@@ -18,7 +18,7 @@ spec:
     port: http-metrics
   namespaceSelector:
     matchNames:
-    - rook-ceph
+    - {{ .Values.global.cephClusterNamespace }}
   selector:
     matchLabels:
       app: rook-ceph-mgr

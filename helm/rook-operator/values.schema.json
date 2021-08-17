@@ -89,6 +89,9 @@
         "global": {
             "type": "object",
             "properties": {
+                "cephClusterNamespace": {
+                    "type": "string"
+                },
                 "isManagementCluster": {
                     "type": "boolean"
                 },

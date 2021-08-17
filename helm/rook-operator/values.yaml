@@ -400,6 +400,10 @@ networkPolicy:
 # shared values with subchart.
 #
 global:
+  # namespace the Ceph components will be deployed into. Must match the
+  # namespace configured in the CephCluster CR.
+  cephClusterNamespace: "rook-ceph"
+
   # toggle MC-specific resources to be created.
   isManagementCluster: false
 
