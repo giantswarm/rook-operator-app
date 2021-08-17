@@ -110,7 +110,7 @@ git switch update-1.6.0
 - Merge the subchart's branch into our repo and cleanup :
 
 ```
-git subtree merge --squash -P helm/rook-operator/charts/ceph-cluster temp-split-branch-subchart
+git subtree merge --squash -P helm/rook-operator/charts/rook-ceph-cluster temp-split-branch-subchart
 git branch -D temp-split-branch-subchart
 ```
 
