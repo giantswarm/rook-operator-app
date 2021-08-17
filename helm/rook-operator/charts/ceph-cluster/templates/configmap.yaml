@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.configOverride }}
 ---
 kind: ConfigMap
@@ -8,4 +9,5 @@ metadata:
 data:
   config: |
 {{ .Values.configOverride | nindent 4 }}
+{{- end }}
 {{- end }}

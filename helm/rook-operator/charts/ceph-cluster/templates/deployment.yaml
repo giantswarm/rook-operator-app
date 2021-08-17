@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.toolbox.enabled }}
 ---
 apiVersion: apps/v1
@@ -64,5 +65,6 @@ spec:
 {{- if .Values.toolbox.affinity }}
       affinity:
 {{ toYaml .Values.toolbox.affinity | indent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}

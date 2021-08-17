@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if ne .Values.global.cephClusterNamespace .Values.operatorNamespace }}
 ---
 # Allow the ceph mgr to access cluster-wide resources necessary for the mgr modules
@@ -27,4 +28,5 @@ subjects:
   - kind: ServiceAccount
     name: rook-ceph-osd
     namespace: {{ .Values.global.cephClusterNamespace }}
+{{- end }}
 {{- end }}

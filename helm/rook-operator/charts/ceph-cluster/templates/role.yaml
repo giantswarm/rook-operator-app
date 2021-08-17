@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if ne .Release.Namespace .Values.operatorNamespace }}
 ---
 kind: Role
@@ -110,3 +111,5 @@ rules:
       - delete
 {{- end }}
 {{- end }}
+{{- end }}
+
