@@ -2,6 +2,11 @@
 
 ## Updating
 
+There are two distint update processes; one for the main chart and a
+second one for the `ceph-cluster` subchart.
+
+### Updating the main chart
+
 This process assumes that you have a master branch which is currently
 offering `v1.5.9` of `rook`, and you want to update it to `v1.6.0` from
 upstream.
@@ -75,6 +80,37 @@ Finally, tidy up the branches we created ready for next time:
 
 ```
 git branch -D temp-split-branch
+```
+
+### Updating the ceph-cluster subchart
+
+This is the same process as for the main chart and should be carried out directly
+after updating the main chart to ensure they are in sync.
+
+- Switch to the same upstream release tag again:
+
+```
+git switch --detach v1.6.0
+```
+
+- Split the subchart off into its own branch:
+
+```
+git branch -D temp-split-branch-subchart
+git subtree split -P cluster/charts/rook-ceph-cluster -b temp-split-branch-subchart
+```
+
+- Change branches back to the update branch created earlier:
+
+```
+git switch update-1.6.0
+```
+
+- Merge the subchart's branch into our repo and cleanup :
+
+```
+git subtree merge --squash -P helm/rook-operator/charts/ceph-cluster temp-split-branch-subchart
+git branch -D temp-split-branch-subchart
 ```
 
 ## Making a PR
