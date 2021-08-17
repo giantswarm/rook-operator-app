@@ -1,0 +1,7 @@
+{{- if ne .Release.Namespace .Values.operatorNamespace }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.global.cephClusterNamespace }}
+{{- end }}
