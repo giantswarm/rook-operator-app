@@ -5,5 +5,11 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ .Values.global.cephClusterNamespace }}
+  annotations:
+    # we need to create the namespace first so that the install
+    # doesn't fail.
+    "helm.sh/hook": pre-install
+    # never delete the cluster namespace
+    "helm.sh/resource-policy": keep
 {{- end }}
 {{- end }}
