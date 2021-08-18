@@ -1,5 +1,5 @@
 {{- if .Values.global.rookEnabled }}
-{{- if ne .Release.Namespace .Values.operatorNamespace }}
+{{- if ne .Values.global.cephClusterNamespace .Values.operatorNamespace }}
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
