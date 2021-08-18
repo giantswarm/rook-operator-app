@@ -346,4 +346,9 @@ spec:
 {{- if .Values.rbacEnable }}
       serviceAccountName: rook-ceph-system
 {{- end }}
+      volumes:
+      - name: rook-config
+        emptyDir: {}
+      - name: default-config-dir
+        emptyDir: {}
 {{- end }}
