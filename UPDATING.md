@@ -2,7 +2,7 @@
 
 ## Updating
 
-There are two distint update processes; one for the main chart and a
+There are two distinct update processes; one for the main chart and a
 second one for the `ceph-cluster` subchart.
 
 ### Prepare your local checkout
