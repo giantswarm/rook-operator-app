@@ -19,7 +19,7 @@ operatorNamespace: giantswarm
 # Installs a debugging toolbox deployment
 toolbox:
   enabled: true
-  image: rook/ceph:{{ .Values.global.cephVersion }}
+  image: rook/ceph
   tolerations: []
   affinity: {}
 
