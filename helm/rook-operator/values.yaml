@@ -404,10 +404,6 @@ global:
   # namespace configured in the CephCluster CR.
   cephClusterNamespace: "rook-ceph"
 
-  # set the ceph version to deploy. Currently only affects the toolbox
-  # pod in the ceph-cluster subchart.
-  cephVersion: ""
-
   # toggle MC-specific resources to be created.
   isManagementCluster: false
 
