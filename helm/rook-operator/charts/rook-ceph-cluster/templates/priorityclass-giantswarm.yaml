@@ -1,0 +1,15 @@
+{{- if .Values.global.rookEnabled }}
+apiVersion: scheduling.k8s.io/v1
+description: This priority class is used by rook-ceph OSD pods
+kind: PriorityClass
+metadata:
+  name: rook-ceph-osd
+value: 1000000000
+---
+apiVersion: scheduling.k8s.io/v1
+description: This priority class is used by rook-ceph MON pods
+kind: PriorityClass
+metadata:
+  name: rook-ceph-mon
+value: 1000000000
+{{- end }}
