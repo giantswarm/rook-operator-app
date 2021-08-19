@@ -2,12 +2,8 @@
 
 ## Updating
 
-This process assumes that you have a master branch which is currently
-offering `v1.5.9` of `rook`, and you want to update it to `v1.6.0` from
-upstream.
-
-As this repo contains additions to the upstream chart, you will need to
-merge the changes from the new version in and assess them.
+There are two distinct update processes; one for the main chart and a
+second one for the `ceph-cluster` subchart.
 
 ### Prepare your local checkout
 
@@ -41,6 +37,16 @@ the tag points to instead.
 git switch --detach v1.6.0
 ```
 
+The repo is now ready to update the upstream charts it tracks.
+
+### Updating the main chart
+
+This process assumes that you have a master branch which is currently
+offering `v1.5.9` of `rook`, and you want to update it to `v1.6.0` from
+upstream.
+
+As this repo contains additions to the upstream chart, you will need to
+merge the changes from the new version in and assess them.
 As the upstream Helm chart is in a subdir, we need to use some git magic
 to filter out just the files we need into `temp-split-branch`. This
 operation may take some time depending on the power of your local machine.
@@ -75,6 +81,37 @@ Finally, tidy up the branches we created ready for next time:
 
 ```
 git branch -D temp-split-branch
+```
+
+### Updating the ceph-cluster subchart
+
+This is the same process as for the main chart and should be carried out directly
+after updating the main chart to ensure they are in sync.
+
+- Switch to the same upstream release tag again:
+
+```
+git switch --detach v1.6.0
+```
+
+- Split the subchart off into its own branch:
+
+```
+git branch -D temp-split-branch-subchart
+git subtree split -P cluster/charts/rook-ceph-cluster -b temp-split-branch-subchart
+```
+
+- Change branches back to the update branch created earlier:
+
+```
+git switch update-1.6.0
+```
+
+- Merge the subchart's branch into our repo and cleanup :
+
+```
+git subtree merge --squash -P helm/rook-operator/charts/rook-ceph-cluster temp-split-branch-subchart
+git branch -D temp-split-branch-subchart
 ```
 
 ## Making a PR

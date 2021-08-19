@@ -3,6 +3,8 @@ appVersion: 1.7.0
 dependencies:
   - name: monitoring
     version: 0.2.0
+  - name: rook-ceph-cluster
+    version: 0.0.1
 description: File, Block, and Object Storage Services for your Cloud-Native Environment
 engine: gotpl
 icon: https://s.giantswarm.io/app-icons/2/svg/rook-dark.svg

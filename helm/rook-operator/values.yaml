@@ -5,7 +5,7 @@
 image:
   prefix: rook
   repository: rook/ceph
-  tag: v1.7.0
+  tag: &rookVersion v1.7.0
   pullPolicy: IfNotPresent
 
 crds:
@@ -400,6 +400,10 @@ networkPolicy:
 # shared values with subchart.
 #
 global:
+  # namespace the Ceph components will be deployed into. Must match the
+  # namespace configured in the CephCluster CR.
+  cephClusterNamespace: "rook-ceph"
+
   # toggle MC-specific resources to be created.
   isManagementCluster: false
 
@@ -409,3 +413,9 @@ global:
 # specific variables for the monitoring subchart.
 monitoring:
   codename: ""
+
+# specific variables for the rook-ceph-cluster subchart.
+rook-ceph-cluster:
+  toolbox:
+    # YAML anchor which references main rook version value earlier in this file.
+    version: *rookVersion
