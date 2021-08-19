@@ -92,9 +92,6 @@
                 "cephClusterNamespace": {
                     "type": "string"
                 },
-                "cephVersion": {
-                    "type": "string"
-                },
                 "isManagementCluster": {
                     "type": "boolean"
                 },
@@ -219,6 +216,19 @@
                             "type": "string"
                         },
                         "memory": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "rook-ceph-cluster": {
+            "type": "object",
+            "properties": {
+                "toolbox": {
+                    "type": "object",
+                    "properties": {
+                        "version": {
                             "type": "string"
                         }
                     }
