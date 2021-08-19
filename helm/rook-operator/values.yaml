@@ -5,7 +5,7 @@
 image:
   prefix: rook
   repository: rook/ceph
-  tag: v1.7.0
+  tag: &rookVersion v1.7.0
   pullPolicy: IfNotPresent
 
 crds:
@@ -417,3 +417,9 @@ global:
 # specific variables for the monitoring subchart.
 monitoring:
   codename: ""
+
+# specific variables for the rook-ceph-cluster subchart.
+rook-ceph-cluster:
+  toolbox:
+    # YAML anchor which references main rook version value earlier in this file.
+    version: *rookVersion
