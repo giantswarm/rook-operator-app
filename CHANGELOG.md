@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make the Ceph version configurable from the main chart's values ([#40](https://github.com/giantswarm/rook-operator-app/pull/40)).
 - Extended UPDATING.md to reflect the additional subchart ([#40](https://github.com/giantswarm/rook-operator-app/pull/40)).
 
+### Changed
+
+- Disable CephFS CSI driver by default ([#43](https://github.com/giantswarm/rook-operator-app/pull/43)).
+
 ## [1.1.0] - 2021-08-06
 
 ### Changed
