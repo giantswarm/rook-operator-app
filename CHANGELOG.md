@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add tolerations to values to work around a deployment bug ([#47](https://github.com/giantswarm/rook-operator-app/pull/47)).
+
 ## [2.0.0] - 2021-08-20
 
 ### Added
