@@ -30,7 +30,10 @@ nodeSelector: {}
 #  disktype: ssd
 
 # Tolerations for the rook-ceph-operator to allow it to run on nodes with particular taints
-tolerations: []
+tolerations:
+- effect: NoSchedule
+  key: storage-node
+  operator: Exists
 
 # Delay to use in node.kubernetes.io/unreachable toleration
 unreachableNodeTolerationSeconds: 5

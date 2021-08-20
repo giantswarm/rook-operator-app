@@ -236,7 +236,21 @@
             }
         },
         "tolerations": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "effect": {
+                        "type": "string"
+                    },
+                    "key": {
+                        "type": "string"
+                    },
+                    "operator": {
+                        "type": "string"
+                    }
+                }
+            }
         },
         "unreachableNodeTolerationSeconds": {
             "type": "integer"
