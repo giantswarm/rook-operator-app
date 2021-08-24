@@ -30,6 +30,7 @@ Some apps have restrictions on how they can be deployed.
 Not following these limitations will most likely result in a broken deployment.
 
 * This App will only be available for KVM on-premise clusters.
+* The cluster namespace (usually `rook-ceph`) **must** exist before the App is installed.
 
 ## Credit
 
