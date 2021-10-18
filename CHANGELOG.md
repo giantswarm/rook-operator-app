@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2] - 2021-10-18
 
+## [2.0.2] - 2021-10-18
+
 - Update app icon
 
 ## [2.0.1] - 2021-08-20
@@ -86,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
 [Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.2...v2.0.2
 [2.0.2]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/rook-operator-app/compare/v1.1.0...v2.0.0
