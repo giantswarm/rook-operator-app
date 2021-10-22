@@ -7,6 +7,7 @@ dependencies:
     version: 0.0.1
 description: File, Block, and Object Storage Services for your Cloud-Native Environment
 engine: gotpl
+home: https://github.com/giantswarm/rook-operator-app
 icon: https://s.giantswarm.io/app-icons/2/svg/rook-dark.svg
 name: rook-operator
 sources:
