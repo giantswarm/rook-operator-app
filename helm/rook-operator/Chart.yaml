@@ -14,7 +14,7 @@ sources:
   - https://github.com/rook/rook
 version: 1.1.0
 annotations:
-  application.giantswarm.io/team: "rocket"
+  application.giantswarm.io/team: team-rocket
   config.giantswarm.io/version: 1.x.x
 restrictions:
   compatibleProviders: ["kvm"]
