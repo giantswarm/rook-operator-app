@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-11-05
+
 ### Changed
 
 - Adds a toleration to CSI daemonsets to ignore all NoSchedule taints.
@@ -96,7 +98,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
-[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/giantswarm/rook-operator-app/compare/v0.2.4...v2.1.0
 [0.2.4]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.3...v0.2.4
 [2.0.3]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.1...v2.0.2
