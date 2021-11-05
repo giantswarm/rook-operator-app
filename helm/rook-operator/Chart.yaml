@@ -15,7 +15,9 @@ keywords:
 - ceph
 kubeVersion: ">=1.16.0"
 maintainers:
-  - name: glitchcrab
+  - name: travisn
+  - name: galexrt
+  - name: jbw976
 name: rook-operator
 sources:
   - https://github.com/rook/rook
