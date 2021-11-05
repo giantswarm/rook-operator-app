@@ -53,7 +53,7 @@
                     "type": "boolean"
                 },
                 "pluginTolerations": {
-                    "type": "object",
+                    "type": "array"
                 },
                 "rbdFSGroupPolicy": {
                     "type": "string"
