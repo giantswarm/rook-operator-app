@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Adds a toleration to CSI daemonsets to ignore all NoSchedule taints.
+- Increases the operator's log level to aid debugging.
+
 ## [0.2.4] - 2021-11-03
 
 ## [2.0.3] - 2021-10-22

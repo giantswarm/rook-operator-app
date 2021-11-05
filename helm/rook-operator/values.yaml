@@ -45,7 +45,7 @@ currentNamespaceOnly: false
 annotations: {}
 
 ## LogLevel can be set to: TRACE, DEBUG, INFO, NOTICE, WARNING, ERROR or CRITICAL
-logLevel: INFO
+logLevel: DEBUG
 
 ## If true, create & use RBAC resources
 ##
@@ -258,10 +258,9 @@ csi:
   # provisionerNodeAffinity: key1=value1,value2; key2=value3
   # Set pluginTolerations and pluginNodeAffinity for plugin daemonset pods.
   # The CSI plugins need to be started on all the nodes where the clients need to mount the storage.
-  # pluginTolerations:
-  #    - key: key
-  #      operator: Exists
-  #      effect: NoSchedule
+  pluginTolerations:
+    - effect: NoSchedule
+      operator: Exists
   # pluginNodeAffinity: key1=value1,value2; key2=value3
   #cephfsGrpcMetricsPort: 9091
   #cephfsLivenessMetricsPort: 9081

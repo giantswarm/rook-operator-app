@@ -52,6 +52,9 @@
                 "forceCephFSKernelClient": {
                     "type": "boolean"
                 },
+                "pluginTolerations": {
+                    "type": "array"
+                },
                 "rbdFSGroupPolicy": {
                     "type": "string"
                 },
