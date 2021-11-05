@@ -9,6 +9,15 @@ description: File, Block, and Object Storage Services for your Cloud-Native Envi
 engine: gotpl
 home: https://github.com/giantswarm/rook-operator-app
 icon: https://s.giantswarm.io/app-icons/2/svg/rook-dark.svg
+keywords:
+- operator
+- rook
+- ceph
+kubeVersion: ">=1.16.0"
+maintainers:
+  - name: travisn
+  - name: galexrt
+  - name: jbw976
 name: rook-operator
 sources:
   - https://github.com/rook/rook
