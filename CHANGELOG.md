@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Use prometheus rules only on MCs.
+- Add `cluster_type` label to prometheus rules.
 
 ## [2.1.0] - 2021-11-05
 
