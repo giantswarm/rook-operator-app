@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove storage node toleration to ensure operator cannot be scheduled there ([#66](https://github.com/giantswarm/rook-operator-app/pull/66)).
+
 ## [2.1.0] - 2021-11-05
 
 ### Changed
