@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2021-11-15
+
 ### Added
 
 - Add cluster_type label to current monitoring rules.
@@ -108,7 +110,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
-[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/giantswarm/rook-operator-app/compare/v0.2.4...v2.1.0
 [0.2.4]: https://github.com/giantswarm/rook-operator-app/compare/v2.0.3...v0.2.4
