@@ -5,6 +5,7 @@ kind: PrometheusRule
 metadata:
   labels:
     {{- include "labels.common" . | nindent 4 }}
+    cluster_type: "management_cluster"
   name: {{ .Values.nameStub }}-ceph-mon.rules
   namespace: {{ .Values.rules.deploymentNamespace }}
 spec:
