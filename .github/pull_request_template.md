@@ -8,11 +8,8 @@ MODIFY THIS AFTER your new app repo is in https://github.com/giantswarm/github
 this PR has been submitted. (But not for drafts)
 -->
 
-<!--
+**EXTREMELY IMPORTANT: if you are updating the rook-operator helm chart from upstream via the git subtree method, you _must not_ squash merge this PR as it will break future updates. Standard merges only, please - you'll save future you a lot of pain.**
 
-EXTREMELY IMPORTANT: if you are updating the rook-operator helm chart from upstream via the git subtree method, you _must not_ squash merge this PR as it will break future updates. Standard merges only, please - you'll save future you a lot of pain.
-
--->
 
 This PR:
 
