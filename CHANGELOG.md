@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update the upstream helm chart to 1.7.11 ([#82](https://github.com/giantswarm/rook-operator-app/pull/82)).
+
 ### Fixed
 
 - Re-initialise the upstream helm chart at 1.7.0 to correct an incorrect merge ([#81](https://github.com/giantswarm/rook-operator-app/pull/81)).
