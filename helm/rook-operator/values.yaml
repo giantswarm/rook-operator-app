@@ -5,7 +5,7 @@
 image:
   prefix: rook
   repository: rook/ceph
-  tag: VERSION
+  tag: &rookVersion v1.7.0
   pullPolicy: IfNotPresent
 
 crds:
@@ -42,7 +42,7 @@ currentNamespaceOnly: false
 annotations: {}
 
 ## LogLevel can be set to: TRACE, DEBUG, INFO, NOTICE, WARNING, ERROR or CRITICAL
-logLevel: INFO
+logLevel: DEBUG
 
 ## If true, create & use RBAC resources
 ##
@@ -56,7 +56,7 @@ pspEnable: true
 ## needed
 csi:
   enableRbdDriver: true
-  enableCephfsDriver: true
+  enableCephfsDriver: false
   enableGrpcMetrics: false
   # Set to true to enable host networking for CSI CephFS and RBD nodeplugins. This may be necessary
   # in some network configurations where the SDN does not provide access to an external cluster or
@@ -255,10 +255,9 @@ csi:
   # provisionerNodeAffinity: key1=value1,value2; key2=value3
   # Set pluginTolerations and pluginNodeAffinity for plugin daemonset pods.
   # The CSI plugins need to be started on all the nodes where the clients need to mount the storage.
-  # pluginTolerations:
-  #    - key: key
-  #      operator: Exists
-  #      effect: NoSchedule
+  pluginTolerations:
+    - effect: NoSchedule
+      operator: Exists
   # pluginNodeAffinity: key1=value1,value2; key2=value3
   #cephfsGrpcMetricsPort: 9091
   #cephfsLivenessMetricsPort: 9081
@@ -368,3 +367,54 @@ admissionController:
   #      operator: Exists
   #      effect: NoSchedule
   # nodeAffinity: key1=value1,value2; key2=value3
+
+## Giant Swarm chart addtions
+
+# different priorityclasses must be enabled depending on whether
+# rook is being installed in a Management Cluster or a Workload
+# Cluster.
+#
+priorityClasses:
+  osd:
+    # must be enabled when deploying to a Management Cluster.
+    enabled: false
+    name: rook-ceph-osd
+    value: "1000000000"
+  mon:
+    # must be enabled when deploying to a Management Cluster.
+    enabled: false
+    name: rook-ceph-mon
+    value: "1000000000"
+  default:
+    # must be enabled when deploying to Management and Workload Clusters.
+    enabled: true
+    name: rook-ceph-default
+    value: "1000000000"
+
+# enable network policy (if required).
+#
+networkPolicy:
+  enabled: true
+
+# shared values with subchart.
+#
+global:
+  # namespace the Ceph components will be deployed into. Must match the
+  # namespace configured in the CephCluster CR.
+  cephClusterNamespace: "rook-ceph"
+
+  # toggle MC-specific resources to be created.
+  isManagementCluster: false
+
+  # global toggle to enable/disable creation of all resources.
+  rookEnabled: true
+
+# specific variables for the monitoring subchart.
+monitoring:
+  codename: ""
+
+# specific variables for the rook-ceph-cluster subchart.
+rook-ceph-cluster:
+  toolbox:
+    # YAML anchor which references main rook version value earlier in this file.
+    version: *rookVersion
