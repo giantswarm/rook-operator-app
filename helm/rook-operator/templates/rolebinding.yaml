@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.rbacEnable }}
 # Grant the operator, agent, and discovery agents access to resources in the rook-ceph-system namespace
 kind: RoleBinding
@@ -131,4 +132,5 @@ roleRef:
   kind: Role
   name: rook-ceph-purge-osd
   apiGroup: rbac.authorization.k8s.io
+{{- end }}
 {{- end }}
