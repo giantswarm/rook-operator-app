@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update the upstream helm chart to 1.7.11 ([#82](https://github.com/giantswarm/rook-operator-app/pull/82)).
+- Update the upstream rook-ceph-cluster helm chart to 1.7.11 ([#83](https://github.com/giantswarm/rook-operator-app/pull/83)).
 
 ### Fixed
 

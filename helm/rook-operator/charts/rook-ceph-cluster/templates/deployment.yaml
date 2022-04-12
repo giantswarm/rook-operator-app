@@ -25,7 +25,7 @@ spec:
 {{- end }}
       containers:
         - name: rook-ceph-tools
-          image: {{ .Values.toolbox.image }}:{{ .Values.toolbox.version }}
+          image: {{ .Values.toolbox.image }}:{{ .Values.global.rookCephCluster.toolbox.version }}
           command: ["/tini"]
           args: ["-g", "--", "/usr/local/bin/toolbox.sh"]
           imagePullPolicy: IfNotPresent

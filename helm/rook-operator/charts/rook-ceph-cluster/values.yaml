@@ -6,8 +6,15 @@
 # GS addition: rook-operator will always be deployed into the giantswarm namespace.
 operatorNamespace: giantswarm
 
+# GS addition: toggle creation of the Custom Resources defined below. This should always
+# be set to false as we manage these outside of the chart.
+createCustomResources: false
+
 # The metadata.name of the CephCluster CR. The default name is the same as the namespace.
 # clusterName: rook-ceph
+
+# Ability to override the kubernetes version used in rendering the helm chart
+# kubeVersion: 1.21
 
 # Ability to override ceph.conf
 # configOverride: |
@@ -43,7 +50,7 @@ cephClusterSpec:
     # versions running within the cluster. See tags available at https://hub.docker.com/r/ceph/ceph/tags/.
     # If you want to be more precise, you can always use a timestamp tag such quay.io/ceph/ceph:v15.2.11-20200419
     # This tag might not contain a new Ceph version, just security fixes from the underlying operating system, which will reduce vulnerabilities
-    image: quay.io/ceph/ceph:v16.2.5
+    image: quay.io/ceph/ceph:v16.2.6
     # Whether to allow unsupported versions of Ceph. Currently `nautilus` and `octopus` are supported.
     # Future versions such as `pacific` would require this to be set to `true`.
     # Do not set to true in production.
@@ -71,7 +78,8 @@ cephClusterSpec:
   waitTimeoutForHealthyOSDInMinutes: 10
 
   mon:
-    # Set the number of mons to be started. Must be an odd number, and is generally recommended to be 3.
+    # Set the number of mons to be started. Generally recommended to be 3.
+    # For highest availability, an odd number of mons should be specified.
     count: 3
     # The mons should be on unique nodes. For production, at least 3 nodes are recommended for this reason.
     # Mons should only be allowed on the same node for test environments where data loss is acceptable.
@@ -95,6 +103,8 @@ cephClusterSpec:
     # urlPrefix: /ceph-dashboard
     # serve the dashboard at the given port.
     # port: 8443
+    # serve the dashboard using SSL
+    ssl: true
 
   # Network configuration, see: https://github.com/rook/rook/blob/master/Documentation/ceph-cluster-crd.md#network-configuration-settings
   # network:
@@ -249,9 +259,9 @@ cephClusterSpec:
     #     devices: # specific devices to use for storage can be specified for each node
     #       - name: "sdb"
     #       - name: "nvme01" # multiple osds can be created on high performance devices
-    #     config:
-    #       osdsPerDevice: "5"
-    #   - name: "/dev/disk/by-id/ata-ST4000DM004-XXXX" # devices can be specified using full udev paths
+    #         config:
+    #           osdsPerDevice: "5"
+    #       - name: "/dev/disk/by-id/ata-ST4000DM004-XXXX" # devices can be specified using full udev paths
     #     config: # configuration can be specified at the node level which overrides the cluster level config
     #   - name: "172.17.4.301"
     #     deviceFilter: "^sd."
@@ -321,6 +331,7 @@ cephBlockPools:
       isDefault: true
       reclaimPolicy: Delete
       allowVolumeExpansion: true
+      mountOptions: []
       # see https://github.com/rook/rook/blob/master/Documentation/ceph-block.md#provision-storage for available configuration
       parameters:
         # (optional) mapOptions is a comma-separated list of map options.
@@ -329,14 +340,14 @@ cephBlockPools:
         # For nbd options refer
         # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
         # mapOptions: lock_on_read,queue_depth=1024
-  
+
         # (optional) unmapOptions is a comma-separated list of unmap options.
         # For krbd options refer
         # https://docs.ceph.com/docs/master/man/8/rbd/#kernel-rbd-krbd-options
         # For nbd options refer
         # https://docs.ceph.com/docs/master/man/8/rbd-nbd/#options
         # unmapOptions: force
-  
+
         # RBD image format. Defaults to "2".
         imageFormat: "2"
         # RBD image features. Available for imageFormat: "2". CSI RBD currently supports only `layering` feature.
@@ -369,8 +380,11 @@ cephFileSystems:
         activeStandby: true
     storageClass:
       enabled: true
+      isDefault: false
       name: ceph-filesystem
       reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      mountOptions: []
       # see https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md#provision-storage for available configuration
       parameters:
         # The secrets contain Ceph admin credentials.

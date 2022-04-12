@@ -414,12 +414,12 @@ global:
   # global toggle to enable/disable creation of all resources.
   rookEnabled: true
 
+  # configuration for the rook-cephc-cluster subchart.
+  rookCephCluster:
+    toolbox:
+      # YAML anchor which references main rook version value earlier in this file.
+      version: *rookVersion
+
 # specific variables for the monitoring subchart.
 monitoring:
   codename: ""
-
-# specific variables for the rook-ceph-cluster subchart.
-rook-ceph-cluster:
-  toolbox:
-    # YAML anchor which references main rook version value earlier in this file.
-    version: *rookVersion
