@@ -3,7 +3,12 @@
 # Declare variables to be passed into your templates.
 
 # Namespace of the main rook operator
-operatorNamespace: rook-ceph
+# GS addition: rook-operator will always be deployed into the giantswarm namespace.
+operatorNamespace: giantswarm
+
+# GS addition: toggle creation of the Custom Resources defined below. This should always
+# be set to false as we manage these outside of the chart.
+createCustomResources: false
 
 # The metadata.name of the CephCluster CR. The default name is the same as the namespace.
 # clusterName: rook-ceph
@@ -20,8 +25,8 @@ operatorNamespace: rook-ceph
 
 # Installs a debugging toolbox deployment
 toolbox:
-  enabled: false
-  image: rook/ceph:VERSION
+  enabled: true
+  image: rook/ceph
   tolerations: []
   affinity: {}
 

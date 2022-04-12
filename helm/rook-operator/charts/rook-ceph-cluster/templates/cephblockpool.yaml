@@ -1,3 +1,4 @@
+{{- if .Values.createCustomResources }}
 {{- $root := . -}}
 {{- range $blockpool := .Values.cephBlockPools -}}
 ---
@@ -28,5 +29,6 @@ mountOptions:
   - {{ . }}
   {{- end }}
 {{- end }}
+{{ end }}
 {{ end }}
 {{ end }}

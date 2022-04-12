@@ -1,9 +1,11 @@
+{{- if .Values.global.rookEnabled }}
 {{- if .Values.ingress.dashboard.host }}
 ---
 apiVersion: {{ include "capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ template "clusterName" . }}-dashboard
+  namespace: {{ .Values.global.cephClusterNamespace }}
   {{- if .Values.ingress.dashboard.annotations }}
   annotations: {{- toYaml .Values.ingress.dashboard.annotations | nindent 4 }}
   {{- end }}
@@ -35,4 +37,5 @@ spec:
   {{- if .Values.ingress.dashboard.tls }}
   tls: {{- toYaml .Values.ingress.dashboard.tls | nindent 4 }}
   {{- end }}
+{{- end }}
 {{- end }}

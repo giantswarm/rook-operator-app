@@ -1,3 +1,4 @@
+{{- if .Values.createCustomResources }}
 {{- $root := . -}}
 {{- range $filesystem := .Values.cephFileSystems -}}
 ---
@@ -29,5 +30,6 @@ mountOptions:
   - {{ . }}
   {{- end }}
 {{- end }}
+{{ end }}
 {{ end }}
 {{ end }}
