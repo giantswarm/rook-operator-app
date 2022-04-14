@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2022-04-14
+
 ### Changed
 
 - Update the upstream helm chart to 1.7.11 ([#82](https://github.com/giantswarm/rook-operator-app/pull/82)).
@@ -119,7 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
-[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/giantswarm/rook-operator-app/compare/v0.2.4...v2.1.0
