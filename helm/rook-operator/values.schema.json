@@ -5,9 +5,6 @@
         "admissionController": {
             "type": ["null", "object"]
         },
-        "allowMultipleFilesystems": {
-            "type": "boolean"
-        },
         "annotations": {
             "type": "object"
         },
@@ -31,6 +28,14 @@
                 "cephFSFSGroupPolicy": {
                     "type": "string"
                 },
+                "csiAddons": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "enableCephfsDriver": {
                     "type": "boolean"
                 },
@@ -41,6 +46,9 @@
                     "type": "boolean"
                 },
                 "enableOMAPGenerator": {
+                    "type": "boolean"
+                },
+                "enablePluginSelinuxHostMount": {
                     "type": "boolean"
                 },
                 "enableRBDSnapshotter": {
@@ -94,9 +102,6 @@
         "enableDiscoveryDaemon": {
             "type": "boolean"
         },
-        "enableFlexDriver": {
-            "type": "boolean"
-        },
         "enableOBCWatchOperatorNamespace": {
             "type": "boolean"
         },
@@ -136,9 +141,6 @@
         "image": {
             "type": "object",
             "properties": {
-                "prefix": {
-                    "type": "string"
-                },
                 "pullPolicy": {
                     "type": "string"
                 },
@@ -158,6 +160,9 @@
             "properties": {
                 "codename": {
                     "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
                 }
             }
         },
