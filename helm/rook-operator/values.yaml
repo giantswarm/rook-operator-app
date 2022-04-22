@@ -3,17 +3,16 @@
 # Declare variables to be passed into your templates.
 
 image:
-  prefix: rook
   repository: rook/ceph
-  tag: &rookVersion v1.7.11
+  tag: &rookVersion v1.8.8
   pullPolicy: IfNotPresent
 
 crds:
   # Whether the helm chart should create and update the CRDs. If false, the CRDs must be
-  # managed independently with cluster/examples/kubernetes/ceph/crds.yaml.
+  # managed independently with deploy/examples/crds.yaml.
   # **WARNING** Only set during first deployment. If later disabled the cluster may be DESTROYED.
   # If the CRDs are deleted in this case, see the disaster recovery guide to restore them.
-  # https://rook.github.io/docs/rook/master/ceph-disaster-recovery.html#restoring-crds-after-deletion
+  # https://rook.github.io/docs/rook/latest/ceph-disaster-recovery.html#restoring-crds-after-deletion
   enabled: true
 
 resources:
@@ -52,6 +51,9 @@ rbacEnable: true
 ##
 pspEnable: true
 
+# Set the priority class for the rook operator deployment if desired
+# priorityClassName: class
+
 ## Settings for whether to disable the drivers or other daemons if they are not
 ## needed
 csi:
@@ -66,6 +68,8 @@ csi:
   enableCephfsSnapshotter: true
   # set to false to disable deployment of snapshotter container in RBD provisioner pod.
   enableRBDSnapshotter: true
+  # set to false if the selinux is not enabled or unavailable in cluster nodes.
+  enablePluginSelinuxHostMount : false
   # (Optional) set user created priorityclassName for csi plugin pods.
   # pluginPriorityClassName: system-node-critical
 
@@ -78,7 +82,7 @@ csi:
 
   # (Optional) policy for modifying a volume's ownership or permissions when the CephFS PVC is being mounted.
   # supported values are documented at https://kubernetes-csi.github.io/docs/support-fsgroup.html
-  cephFSFSGroupPolicy: "None"
+  cephFSFSGroupPolicy: "ReadWriteOnceWithFSType"
 
   # OMAP generator generates the omap mapping between the PV name and the RBD image
   # which helps CSI to identify the rbd images for CSI operations.
@@ -265,6 +269,7 @@ csi:
   #cephfsGrpcMetricsPort: 9091
   #cephfsLivenessMetricsPort: 9081
   #rbdGrpcMetricsPort: 9090
+  #csiAddonsPort: 9070
   # Enable Ceph Kernel clients on kernel < 4.17. If your kernel does not support quotas for CephFS
   # you may want to disable this setting. However, this will cause an issue during upgrades
   # with the FUSE client. See the upgrade guide: https://rook.io/docs/rook/v1.2/ceph-upgrade.html
@@ -272,17 +277,17 @@ csi:
   #rbdLivenessMetricsPort: 9080
   #kubeletDirPath: /var/lib/kubelet
   #cephcsi:
-    #image: quay.io/cephcsi/cephcsi:v3.4.0
+    #image: quay.io/cephcsi/cephcsi:v3.5.1
   #registrar:
-    #image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.2.0
+    #image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.0
   #provisioner:
-    #image: k8s.gcr.io/sig-storage/csi-provisioner:v2.2.2
+    #image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0
   #snapshotter:
-    #image: k8s.gcr.io/sig-storage/csi-snapshotter:v4.1.1
+    #image: k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1
   #attacher:
-    #image: k8s.gcr.io/sig-storage/csi-attacher:v3.2.1
+    #image: k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
   #resizer:
-    #image: k8s.gcr.io/sig-storage/csi-resizer:v1.2.0
+    #image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
   # Labels to add to the CSI CephFS Deployments and DaemonSets Pods.
   #cephfsPodLabels: "key1=value1,key2=value2"
   # Labels to add to the CSI RBD Deployments and DaemonSets Pods.
@@ -292,40 +297,16 @@ csi:
   # See https://rook.io/docs/rook/latest/ceph-csi-drivers.html#rbd-mirroring
   volumeReplication:
     enabled: false
-    #image: "quay.io/csiaddons/volumereplication-operator:v0.1.0"
-
-enableFlexDriver: false
+    #image: "quay.io/csiaddons/volumereplication-operator:v0.3.0"
+  # Enable the CSIAddons sidecar.
+  csiAddons:
+    enabled: false
+    #image: "quay.io/csiaddons/k8s-sidecar:v0.2.1"
 enableDiscoveryDaemon: false
 cephCommandsTimeoutSeconds: "15"
 
-# enable the ability to have multiple Ceph filesystems in the same cluster
-# WARNING: Experimental feature in Ceph Releases Octopus (v15) and Nautilus (v14)
-# https://docs.ceph.com/en/octopus/cephfs/experimental-features/#multiple-file-systems-within-a-ceph-cluster
-allowMultipleFilesystems: false
-
 ## if true, run rook operator on the host network
 # useOperatorHostNetwork: true
-
-## Rook Agent configuration
-## toleration: NoSchedule, PreferNoSchedule or NoExecute
-## tolerationKey: Set this to the specific key of the taint to tolerate
-## tolerations: Array of tolerations in YAML format which will be added to agent deployment
-## nodeAffinity: Set to labels of the node to match
-## flexVolumeDirPath: The path where the Rook agent discovers the flex volume plugins
-## libModulesDirPath: The path where the Rook agent can find kernel modules
-# agent:
-#   toleration: NoSchedule
-#   tolerationKey: key
-#   tolerations:
-#   - key: key
-#     operator: Exists
-#     effect: NoSchedule
-#   nodeAffinity: key1=value1,value2; key2=value3
-#   mountSecurityMode: Any
-## For information on FlexVolume path, please refer to https://rook.io/docs/rook/master/flexvolume.html
-#   flexVolumeDirPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
-#   libModulesDirPath: /lib/modules
-#   mounts: mount1=/host/path:/container/path,/host/path2:/container/path2
 
 ## Rook Discover configuration
 ## toleration: NoSchedule, PreferNoSchedule or NoExecute
@@ -423,3 +404,10 @@ global:
 # specific variables for the monitoring subchart.
 monitoring:
   codename: ""
+
+  # The below value is _NOT_ a GS addition, it was added after our changes to the
+  # values file structure.
+  #
+  # requires Prometheus to be pre-installed
+  # enabling will also create RBAC rules to allow Operator to create ServiceMonitors
+  enabled: false
