@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update the upstream helm chart to 1.8.8
+- Update the library helm chart to 1.8.8
 - Update the updating doc to accomodate the rook/rook repo restructuring.
 
 ## [2.4.0] - 2022-04-14
