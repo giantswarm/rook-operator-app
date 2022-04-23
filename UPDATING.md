@@ -2,8 +2,12 @@
 
 ## Updating
 
-There are two distinct update processes; one for the main chart and a
-second one for the `ceph-cluster` subchart.
+There are three distinct chart updates you must do in order to completely
+update `rook-operator-app` to match upstream:
+
+- The primary chart: `helm/rook-operator`
+- The rook-ceph-cluster chart: `helm/rook-operator/charts/rook-ceph-cluster`
+- The library chart: `helm/rook-operator/charts/library`
 
 ### Prepare your local checkout
 
@@ -61,7 +65,7 @@ git branch -D temp-split-branch
 Then recreate the branch for this update:
 
 ```
-git subtree split -P cluster/charts/rook-ceph -b temp-split-branch
+git subtree split -P deploy/charts/rook-ceph -b temp-split-branch
 ```
 
 Now we create an update branch from our main branch (which is at `v1.5.9`):
@@ -98,7 +102,7 @@ git switch --detach v1.6.0
 
 ```
 git branch -D temp-split-branch-subchart
-git subtree split -P cluster/charts/rook-ceph-cluster -b temp-split-branch-subchart
+git subtree split -P deploy/charts/rook-ceph-cluster -b temp-split-branch-subchart
 ```
 
 - Change branches back to the update branch created earlier:
@@ -114,11 +118,44 @@ git subtree merge --squash -P helm/rook-operator/charts/rook-ceph-cluster temp-s
 git branch -D temp-split-branch-subchart
 ```
 
+### Updating the library subchart
+
+This is the same process as for the main chart and should be carried out directly
+after updating the main chart to ensure they are in sync. The upstream repo contains
+a symlink to the library chart, but this won't work for our helm structure so we need
+to use the subtree method to replace the symlink with the actual library chart.
+
+- Switch to the same upstream release tag again:
+
+```
+git switch --detach v1.6.0
+```
+
+- Split the subchart off into its own branch:
+
+```
+git branch -D temp-split-branch-subchart
+git subtree split -P deploy/charts/library -b temp-split-branch-library
+```
+
+- Change branches back to the update branch created earlier:
+
+```
+git switch update-1.6.0
+```
+
+- Merge the subchart's branch into our repo and cleanup :
+
+```
+git subtree merge --squash -P helm/rook-operator/charts/library temp-split-branch-library
+git branch -D temp-split-branch-library
+```
+
 ## Making a PR
 
-When merging a PR to this repo after merging in from upstream, the commit message
-will also include all commit messages from upstream - these can safely be
-removed. It is *extremely important* that you retain the following info in
+When merging any PR to this repo after pulling it in from upstream, the commit
+message will also include all commit messages from upstream - these can safely
+be removed. It is *extremely important* that you retain the following info in
 the extended commit message as future subtree merges parse it and they will
 fail without it:
 
