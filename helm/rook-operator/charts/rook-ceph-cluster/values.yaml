@@ -29,12 +29,24 @@ toolbox:
   image: rook/ceph
   tolerations: []
   affinity: {}
+  resources: {}
+  # limits:
+  #   cpu: "500m"
+  #   memory: "1024Mi"
+  # requests:
+  #   cpu: "100m"
+  #   memory: "128Mi"
+  # Set the priority class for the toolbox if desired
+  # priorityClassName: class
 
 monitoring:
   # requires Prometheus to be pre-installed
   # enabling will also create RBAC rules to allow Operator to create ServiceMonitors
   enabled: false
   rulesNamespaceOverride:
+
+# If true, create & use PSP resources. Set this to the same value as the rook-ceph chart.
+pspEnable: true
 
 # imagePullSecrets option allow to pull docker images from private docker registry. Option will be passed to all service accounts.
 # imagePullSecrets:
@@ -45,13 +57,13 @@ monitoring:
 cephClusterSpec:
   cephVersion:
     # The container image used to launch the Ceph daemon pods (mon, mgr, osd, mds, rgw).
-    # v14 is nautilus, v15 is octopus, and v16 is pacific.
-    # RECOMMENDATION: In production, use a specific version tag instead of the general v14 flag, which pulls the latest release and could result in different
+    # v15 is octopus, and v16 is pacific.
+    # RECOMMENDATION: In production, use a specific version tag instead of the general v16 flag, which pulls the latest release and could result in different
     # versions running within the cluster. See tags available at https://hub.docker.com/r/ceph/ceph/tags/.
     # If you want to be more precise, you can always use a timestamp tag such quay.io/ceph/ceph:v15.2.11-20200419
     # This tag might not contain a new Ceph version, just security fixes from the underlying operating system, which will reduce vulnerabilities
-    image: quay.io/ceph/ceph:v16.2.6
-    # Whether to allow unsupported versions of Ceph. Currently `nautilus` and `octopus` are supported.
+    image: quay.io/ceph/ceph:v16.2.7
+    # Whether to allow unsupported versions of Ceph. Currently `octopus` and `pacific` are supported.
     # Future versions such as `pacific` would require this to be set to `true`.
     # Do not set to true in production.
     allowUnsupported: false
@@ -64,7 +76,7 @@ cephClusterSpec:
   # Whether or not upgrade should continue even if a check fails
   # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
   # Use at your OWN risk
-  # To understand Rook's upgrade process of Ceph, read https://rook.io/docs/rook/master/ceph-upgrade.html#ceph-version-upgrades
+  # To understand Rook's upgrade process of Ceph, read https://rook.io/docs/rook/latest/ceph-upgrade.html#ceph-version-upgrades
   skipUpgradeChecks: false
 
   # Whether or not continue if PGs are not clean during an upgrade
@@ -175,8 +187,8 @@ cephClusterSpec:
   #           - matchExpressions:
   #             - key: role
   #               operator: In
-  #             values:
-  #             - storage-node
+  #               values:
+  #               - storage-node
   #     podAffinity:
   #     podAntiAffinity:
   #     topologySpreadConstraints:
@@ -240,6 +252,7 @@ cephClusterSpec:
   #   mon: rook-ceph-mon-priority-class
   #   osd: rook-ceph-osd-priority-class
   #   mgr: rook-ceph-mgr-priority-class
+  #   crashcollector: rook-ceph-crashcollector-priority-class
 
   storage: # cluster level storage configuration and selection
     useAllNodes: true
@@ -375,6 +388,8 @@ cephFileSystems:
         - failureDomain: host
           replicated:
             size: 3
+          # Optional and highly recommended, 'data0' by default, see https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem-crd.md#pools
+          name: data0
       metadataServer:
         activeCount: 1
         activeStandby: true
@@ -382,6 +397,8 @@ cephFileSystems:
       enabled: true
       isDefault: false
       name: ceph-filesystem
+      # (Optional) specify a data pool to use, must be the name of one of the data pools above, 'data0' by default
+      pool: data0
       reclaimPolicy: Delete
       allowVolumeExpansion: true
       mountOptions: []
@@ -398,6 +415,26 @@ cephFileSystems:
         # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
         # in hyperconverged settings where the volume is mounted on the same node as the osds.
         csi.storage.k8s.io/fstype: ext4
+
+cephFileSystemVolumeSnapshotClass:
+  enabled: false
+  name: ceph-filesystem
+  isDefault: true
+  deletionPolicy: Delete
+  annotations: {}
+  labels: {}
+  # see https://rook.io/docs/rook/latest/ceph-csi-snapshot.html#cephfs-snapshots for available configuration
+  parameters: {}
+
+cephBlockPoolsVolumeSnapshotClass:
+  enabled: false
+  name: ceph-block
+  isDefault: false
+  deletionPolicy: Delete
+  annotations: {}
+  labels: {}
+  # see https://rook.io/docs/rook/latest/ceph-csi-snapshot.html#rbd-snapshots for available configuration
+  parameters: {}
 
 cephObjectStores:
   - name: ceph-objectstore

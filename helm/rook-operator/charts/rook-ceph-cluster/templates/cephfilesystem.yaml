@@ -19,9 +19,11 @@ metadata:
 provisioner: {{ $root.Values.operatorNamespace }}.cephfs.csi.ceph.com
 parameters:
   fsName: {{ $filesystem.name }}
-  pool: {{ $filesystem.name }}-data0
+  pool: {{ $filesystem.name }}-{{ default "data0" $filesystem.storageClass.pool }}
   clusterID: {{ $root.Release.Namespace }}
-{{ toYaml $filesystem.storageClass.parameters | indent 2 }}
+{{ with $filesystem.storageClass.parameters }}
+{{ toYaml . | indent 2 }}
+{{ end }}
 reclaimPolicy: {{ default "Delete" $filesystem.storageClass.reclaimPolicy }}
 allowVolumeExpansion: {{ default "true" $filesystem.storageClass.allowVolumeExpansion }}
 {{- if $filesystem.storageClass.mountOptions }}
