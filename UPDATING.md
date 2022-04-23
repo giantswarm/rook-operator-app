@@ -134,7 +134,7 @@ git switch --detach v1.6.0
 - Split the subchart off into its own branch:
 
 ```
-git branch -D temp-split-branch-subchart
+git branch -D temp-split-branch-library
 git subtree split -P deploy/charts/library -b temp-split-branch-library
 ```
 
