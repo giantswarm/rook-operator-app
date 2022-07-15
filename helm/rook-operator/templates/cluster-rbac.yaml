@@ -1,3 +1,4 @@
+{{- if .Values.global.rookEnabled }}
 {{/*
 These are resources scoped to the CephCluster namespace. They will be created in the operator
 namespace by default so that a user can easily install a CephCluster into the operator's namespace
@@ -40,4 +41,5 @@ rolebindings
 {{- if .Values.monitoring.enabled }}
 ---
 {{ include "library.cluster.monitoring.rolebindings" . }}
+{{- end }}
 {{- end }}
