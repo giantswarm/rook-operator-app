@@ -30,16 +30,3 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-
-      - architect/push-to-app-collection:
-          name: push-api-to-kvm-app-collection
-          context: architect
-          app_name: "rook-operator"
-          app_collection_repo: "kvm-app-collection"
-          requires:
-            - push-rook-operator-to-giantswarm-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
