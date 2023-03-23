@@ -38,10 +38,10 @@ spec:
         topic: managementcluster
     - alert: CephClusterNearFull
       annotations:
-        description: Storage cluster utilization has crossed 80% and will become read-only at 90%.
+        description: Storage cluster utilization has crossed 75% and will become read-only at 90%.
         opsrecipe: rook-ceph/
       expr: |
-        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.80
+        ceph_cluster_total_used_raw_bytes / ceph_cluster_total_bytes > 0.75
       for: 5s
       labels:
         area: kaas
