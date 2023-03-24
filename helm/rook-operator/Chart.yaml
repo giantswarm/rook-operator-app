@@ -10,9 +10,9 @@ engine: gotpl
 home: https://github.com/giantswarm/rook-operator-app
 icon: https://s.giantswarm.io/app-icons/2/svg/rook-dark.svg
 keywords:
-- operator
-- rook
-- ceph
+  - operator
+  - rook
+  - ceph
 kubeVersion: ">=1.16.0"
 maintainers:
   - name: travisn
@@ -21,7 +21,7 @@ maintainers:
 name: rook-operator
 sources:
   - https://github.com/rook/rook
-version: 1.1.0
+version: 2.4.1
 annotations:
   application.giantswarm.io/team: team-rocket
   config.giantswarm.io/version: 1.x.x
