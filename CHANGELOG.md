@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Drop alert threshold for `CephClusterNearFull` from 80% down to 75%.
+- Add team label to deployment.
 
 ## [2.4.0] - 2022-04-14
 

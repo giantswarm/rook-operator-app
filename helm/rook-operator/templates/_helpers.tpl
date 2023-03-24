@@ -15,6 +15,11 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/* Create chart name and version as used by the chart label. */}}
+{{- define "chart.version" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Define imagePullSecrets option to pass to all service accounts
 */}}
@@ -23,4 +28,11 @@ Define imagePullSecrets option to pass to all service accounts
 imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets }}
 {{- end -}}
+{{- end -}}
+
+{{- define "chart.defaultLabels" -}}
+app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+helm.sh/chart: "{{ template "chart.version" . }}"
+giantswarm.io/service-type: "managed"
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
