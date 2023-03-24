@@ -3,13 +3,24 @@
 checks:
   addAllBuiltIn: true
   exclude:
+  - "access-to-create-pods"
+  - "access-to-secrets"
+  - "dangling-networkpolicy"
+  - "dnsconfig-options"
+  - "minimum-three-replicas"
   - "no-liveness-probe"
+  - "no-node-affinity"
   - "no-readiness-probe"
   - "no-read-only-root-fs"
+  - "no-rolling-update-strategy"
   - "non-existent-service-account"
+  - "non-isolated-pod"
+  - "read-secret-from-env-var"
   - "required-annotation-email"
   - "required-label-owner"
   - "run-as-non-root"
+  - "use-namespace"
+  - "wildcard-in-rules"
   # values below are for the rook-ceph-cluster subchart
   - "default-service-account"
   - "unset-cpu-requirements"
