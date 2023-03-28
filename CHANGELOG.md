@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.1] - 2023-03-28
+
 ### Added
 
 - Add team label to deployment.
@@ -130,6 +132,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release tracking [rook/rook](https://github.com/rook/rook) at `v1.5.9`.
 
 [Unreleased]: https://github.com/giantswarm/rook-operator-app/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/giantswarm/rook-operator-app/compare/v2.4.1...v2.4.1
 [2.4.1]: https://github.com/giantswarm/rook-operator-app/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/giantswarm/rook-operator-app/compare/v2.2.0...v2.3.0
